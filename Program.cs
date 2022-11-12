@@ -27,7 +27,7 @@ namespace ProjektGPR
                 Console.WriteLine("5.Szyfrowanie – szyfr Cezara");
                 Console.WriteLine("6.Wyznaczanie wartości wyrażenia zapisanego w odwrotnej notacji polskiej ONP");
                 Console.WriteLine("7.Jednoczesne znajdowanie minimalnego i maksymalnego elementu.");
-                Console.WriteLine("8.Mnożenie macierzy 2-wymiarowej.  ");
+                Console.WriteLine("8.Mnożenie macierzy 2-wymiarowej.");
                 Console.WriteLine("9.Transpozycja macierzy 3x3");
                 Console.WriteLine("10.Chwila relaksu – zagraj");
                 Console.WriteLine("0 -  >>Wyjdz z aplikacji<<");
@@ -53,7 +53,7 @@ namespace ProjektGPR
                 }
                 else if (wyborTrybu == 5)
                 {
-                    //5.Szyfrowanie – szyfr Cezara
+                    szyfrCezara();
                 }
                 else if (wyborTrybu == 6)
                 {
@@ -65,7 +65,7 @@ namespace ProjektGPR
                 }
                 else if (wyborTrybu == 8)
                 {
-                    Console.WriteLine("siema");
+                    Console.WriteLine("która płeć mężczyzna");
                     // Mnożenie macierzy 2-wymiarowej.
                 }
                 else if (wyborTrybu == 9)
@@ -225,8 +225,7 @@ namespace ProjektGPR
             for (int i = 1; i <= liczbaUzytkownika; i++)
             {
                 wynik *= i;
-            }
-            
+            }         
             Console.Write($"Silnia obliczonej liczby {wynik}  ");
             Console.WriteLine(" ");
         }
@@ -274,7 +273,45 @@ namespace ProjektGPR
                 }
             }
             return -1;
-
+        }
+        // funkcja, ktora szyfruje slowo uzytkownika wzgledem podanego klucza algorytmem szyfru cezara
+        static void szyfrCezara()
+        {
+            Console.Clear();
+            Console.WriteLine("\t Wybrales tryb 5 - szyfr Cezara");
+            Console.WriteLine("Podaj jakis wyraz do zaszyfrowania");
+            string slowoUzytkownika;
+            var tmp = Console.ReadLine();
+            if (tmp != null)
+            {
+                Console.WriteLine("Podaj klucz szyfrujacy");
+                int kluczSzyfrowania = Convert.ToInt32(Console.ReadLine());
+                String szyfr = "";
+                slowoUzytkownika = tmp;
+                for (int i = 0; i < slowoUzytkownika.Length; i++)
+                {
+                    if (Char.IsUpper(slowoUzytkownika[i]))
+                    {
+                        int indeksZnaku = slowoUzytkownika[i] - (char)('A');
+                        int przesuniecieZnaku = (indeksZnaku + kluczSzyfrowania) % 26 + (char)('a');
+                        szyfr += (char)(przesuniecieZnaku);
+                    }
+                    else if (Char.IsLower(slowoUzytkownika[i]))
+                    {
+                        int indeksZnaku = slowoUzytkownika[i] - (char)('a');
+                        int przesuniecieZnaku = (indeksZnaku + kluczSzyfrowania) % 26 + (char)('a');
+                        szyfr += (char)(przesuniecieZnaku);
+                    }
+                    else if (Char.IsDigit(slowoUzytkownika[i]))
+                    {
+                        int nowyZnak = (int)(slowoUzytkownika[i] + kluczSzyfrowania) % 10;
+                        szyfr += (char)(nowyZnak);
+                    }
+                    else { szyfr += slowoUzytkownika[i]; }
+                }           
+                Console.WriteLine("");
+                Console.WriteLine($"Podales klucz {kluczSzyfrowania}  wedlug tego klucza slowo ktore zaszyfrowales to {szyfr}");            
+            }
         }
     }
 }

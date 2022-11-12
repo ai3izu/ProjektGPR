@@ -102,6 +102,7 @@ namespace ProjektGPR
         {
             Console.Clear();
             Console.WriteLine("\tWybrano tryb 7 - Min i Max");
+            Console.WriteLine("");
             Console.WriteLine("Podaj ile liczb chcesz wprowadzic: ");
             int liczbyUzytkownika = Convert.ToInt32(Console.ReadLine());
             int[] tablicaUzytkownika = new int[liczbyUzytkownika];
@@ -121,6 +122,7 @@ namespace ProjektGPR
         {
             Console.Clear();
             Console.WriteLine("\tWybrano tryb 3 - Sortowanie Babelkowe");
+            Console.WriteLine("");
             Console.WriteLine("Oto twoje wylosowane liczby: ");
             int[] sortTab = new int[10];
             for (int i = 0; i < sortTab.Length; i++)
@@ -161,6 +163,7 @@ namespace ProjektGPR
         {
             Console.Clear();
             Console.WriteLine("\tWybrano tryb 10 - Czas Relaksu");
+            Console.WriteLine("");
             Console.WriteLine("!!Wpisz zakres z jakiego przedzialu ma wylosowac liczbe i postaraj sie ja odgadnac!!");
             int przedzial = Convert.ToInt32(Console.ReadLine());
             int wylosowanaLiczba = losowaLiczba.Next(1, przedzial + 1);
@@ -189,6 +192,7 @@ namespace ProjektGPR
         {
             Console.Clear();
             Console.WriteLine("\t Wybrano tryb 4 - Palindromy");
+            Console.WriteLine("");
             Console.WriteLine("\t ====================================================================================================");
             Console.WriteLine("\t przykladowe palindromy do sprawdzenia sos, Anna, sedes, zaraz, kajak, zakaz, owocowo, potop, radar.");
             Console.WriteLine("\t ====================================================================================================");
@@ -196,13 +200,13 @@ namespace ProjektGPR
             Console.WriteLine("Wpisz jakis wyraz aby sprawdzic czy jest palindromem");
             string slowoUzytkownika = Console.ReadLine();
             if (String.IsNullOrEmpty(slowoUzytkownika)) { return false; }
-            slowoUzytkownika = slowoUzytkownika.ToLower();
+            slowoUzytkownika = slowoUzytkownika.Replace(" ", "").ToLower();
             int dlWyrazu = slowoUzytkownika.Length;
             for (int i = 0; i < dlWyrazu  /2 ; i++)
             {
                 if (slowoUzytkownika[i] != slowoUzytkownika[dlWyrazu - i - 1]) 
                 {
-                    Console.WriteLine("nie jest");
+                    Console.WriteLine($"{slowoUzytkownika} nie jest palindromem");
                     return false;
                 }
             }
@@ -214,6 +218,7 @@ namespace ProjektGPR
         {
             Console.Clear();
             Console.WriteLine("\tWybrano tryb 3 - Obliczanie Silni");
+            Console.WriteLine("");
             Console.WriteLine("Podaj liczbe, z ktorej siline chcesz obliczyc");
             int liczbaUzytkownika = Convert.ToInt32(Console.ReadLine());
             int wynik = 1;
@@ -230,6 +235,7 @@ namespace ProjektGPR
         {
             Console.Clear();
             Console.WriteLine("\t Wybrano tryb 1 - Szukanie binarne");
+            Console.WriteLine("");
             Console.WriteLine("Podaj ile liczb chcesz wygenerowac:");
             int liczbyUzytkownik = Convert.ToInt32(Console.ReadLine());
             int[] tablicaUzytkownik = new int[liczbyUzytkownik];

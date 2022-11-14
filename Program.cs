@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -57,15 +58,14 @@ namespace ProjektGPR
                 }
                 else if (wyborTrybu == 6)
                 {
-                    // 6.Wyznaczanie wartości wyrażenia zapisanego w odwrotnej notacji polskiej ONP
+                    alrogytmONP();
                 }
                 else if (wyborTrybu == 7)
                 {
                     minAndMax();
                 }
                 else if (wyborTrybu == 8)
-                {
-                    Console.WriteLine("która płeć mężczyzna");
+                {                   
                     // Mnożenie macierzy 2-wymiarowej.
                 }
                 else if (wyborTrybu == 9)
@@ -313,5 +313,82 @@ namespace ProjektGPR
                 Console.WriteLine($"Podales klucz {kluczSzyfrowania}  wedlug tego klucza slowo ktore zaszyfrowales to {szyfr}");            
             }
         }
-    }
+        //onp start
+        // funkcja sprawdzajaca czy wpisany znak jest operatorem matematycznym
+        static bool czyOperator(char znak)
+        {
+            return znak == '+' || znak == '-' || znak == '*' || znak == '/';
+        }
+        // funkcja sprawdzajaca czy wpisany znak jest cyfra
+        static bool czyCyfra(char znak)
+        {
+            return znak >= '0' && znak <= '9';
+        }
+        // funkcja zamieniajaca string na int 
+        static int stringNaInt(string a, int liczba)
+        {
+            int tmp = 0;
+            while (liczba < a.Length && czyCyfra(a[liczba]))
+            {
+                tmp = tmp * 10 + a[liczba] - '0';
+                ++liczba;
+            }
+            --liczba;
+            return tmp;
+        }
+        // funkcja okreslajaca dzialania matematyczne
+        static int dzialania(int liczba1, int liczba2, char oper)
+        {
+            switch (oper)
+            {
+                case '-':
+                    return liczba1 - liczba2;
+                case '+':
+                    return liczba1 + liczba2;
+                case '*': 
+                    return liczba1 * liczba2;
+                case '/':
+                    return liczba1 / liczba2;
+            }
+            Console.WriteLine("Podano nieprawidlowy operator");
+            return 0;
+        }
+        // algortym onp dziala on z wykorzystaniem powyzszych 4 funkcji, uzytkownik podaje wyrazenie zapisane w ONP i otrzymuje on wynik wyrazenia
+        static void alrogytmONP()
+        {         
+            Console.Clear();
+            Console.WriteLine("\t Wybrano tryb 6 - ONP");
+            Console.WriteLine("Podaj wyrazenie w ONP");
+            string onp = Console.ReadLine();
+            Stack<int> stos = new Stack<int>();
+            int liczbaUzytk1, liczbaUzytk2;
+            for (int i = 0; i < onp.Length; i++)
+            {
+                if (czyCyfra(onp[i]))
+                {                   
+                    stos.Push((stringNaInt(onp, i)));
+                }             
+                else 
+                {
+                    if (czyOperator(onp[i]))
+                    {                    
+                        liczbaUzytk1 = stos.Peek();
+                        stos.Pop();
+                        liczbaUzytk2 = stos.Peek();
+                        stos.Pop();
+                        stos.Push(dzialania(liczbaUzytk2, liczbaUzytk1, onp[i]));
+                    }
+                }                         
+            }
+            if (stos.Count() < 2) 
+            {
+                Console.WriteLine("Niepoprawne wyrażenie ONP");
+            }
+            else
+            {
+                Console.WriteLine($"Wynik twojego dzialania {onp} to: {stos.Peek()}");
+            }           
+        }
+        //onp koniec
+    }   
 }

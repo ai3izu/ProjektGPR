@@ -71,7 +71,7 @@ namespace ProjektGPR
                 }
                 else if (wyborTrybu == 9)
                 {
-                    //9.Transpozycja macierzy 3x3
+                    transpozycjaM();
                 }
                 else if (wyborTrybu == 10)
                 {
@@ -398,7 +398,7 @@ namespace ProjektGPR
             }           
         }
         //onp koniec
-        // mnozenie macierzy
+        // mnozenie macierzy uzytkownik podaje ilosc wierzszy i kolumn dla 2 maciezy nastepnie sa wypelniane wartosciami losowymi i mnozone
         static void mnozenieMacierzy()
         {
             Console.Clear();          
@@ -480,6 +480,85 @@ namespace ProjektGPR
                 Console.Write("\n");
             }
             Console.WriteLine("=========================");
+
+            Console.WriteLine("\tSprawdzanie macierzy");
+            if(b != x)
+            {
+                Console.WriteLine("Mnozenie jest niemozliwe");
+            }
+            else
+            {
+                int[,] macierzWynik = new int[a, x];
+                for (int i = 0; i < a; i++)
+                {
+                    for (int j = 0; j < x; j++)
+                    {
+                        macierzWynik[i, j] = 0;
+                        for (int k = 0; k < b; k++)
+                        {
+                            macierzWynik[i, j] += macierz1[i, k] * macierz2[k, j];
+                        }
+                    }
+                }
+                Console.WriteLine("\tMnozenie maciezy....");
+                Thread.Sleep(1000);
+                Console.WriteLine("\tWynik pomnozonych maciezy");
+                Console.WriteLine("=======================");
+                for (int i = 0; i < a; i++)
+                {
+                    for (int j = 0; j < b; j++)
+                    {
+                        Console.Write($"{macierzWynik[i,j]}\t");
+                    }
+                    Console.Write("\n");
+                }
+                Console.WriteLine("=======================");
+            }
+        }
+        // funckja transpozycji maciezy losuje liczby z zakresu 1 50 do tablicy i wykonuje ich transpozycje
+        static void transpozycjaM()
+        {
+            Console.Clear();
+            Console.WriteLine("\tWybrano tryb 9 - Transpozycja Maciezy 3 x 3");
+            int[,] tabMaciez = new int[3, 3];
+            int[,] tabTrans = new int[3, 3];
+            Console.WriteLine("Liczby wylosowane do tablicy 3x3");
+            Console.WriteLine("==================================");
+            for (int i = 0; i < 3; i++)
+            {
+                for (int j = 0; j < 3; j++)
+                {
+                    tabMaciez[i, j] = losowaLiczba.Next(1, 50);
+                }
+            }
+            for (int i = 0; i < 3; i++)
+            {
+                for (int j = 0; j < 3; j++)
+                {
+                    Console.Write($"{tabMaciez[i,j]}\t");
+                }
+                Console.Write("\n");
+            }
+            Console.WriteLine("==================================");
+            Console.WriteLine("\tTranspozycja Maciezy");
+            Thread.Sleep(1000);
+            Console.WriteLine("==================================");
+            for (int i = 0; i < 3; i++)
+            {
+                for (int j = 0; j < 3; j++)
+                {
+                    tabTrans[j, i] = tabMaciez[i, j];
+                }
+            }
+            for (int i = 0; i < 3; i++)
+            {
+                for (int j = 0; j < 3; j++)
+                {
+                    Console.Write($"{tabTrans[i,j]}\t");
+                }
+                Console.Write("\n");
+            }
+            Console.WriteLine("==================================");
         }
     }   
 }

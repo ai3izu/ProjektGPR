@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace ProjektGPR
@@ -65,8 +66,8 @@ namespace ProjektGPR
                     minAndMax();
                 }
                 else if (wyborTrybu == 8)
-                {                   
-                    // Mnożenie macierzy 2-wymiarowej.
+                {
+                    mnozenieMacierzy();
                 }
                 else if (wyborTrybu == 9)
                 {
@@ -75,6 +76,12 @@ namespace ProjektGPR
                 else if (wyborTrybu == 10)
                 {
                     chwilaRelaksu();
+                }
+                else if (wyborTrybu > 10)
+                {
+                    Console.Clear();
+                    Console.WriteLine("Wybranao tryb ktory nie znajduje sie w programie");
+                    Environment.Exit(0);
                 }
                 if (wyborTrybu != 0)
                 {
@@ -159,6 +166,7 @@ namespace ProjektGPR
                 Environment.Exit(0);
             }
         }
+        // funckja w ktorej uzytkownik wybiera przedzial, z ktorego losowana jest dla niego liczba i musi ja odgadnac 
         static void chwilaRelaksu()
         {
             Console.Clear();
@@ -194,7 +202,7 @@ namespace ProjektGPR
             Console.WriteLine("\t Wybrano tryb 4 - Palindromy");
             Console.WriteLine("");
             Console.WriteLine("\t ====================================================================================================");
-            Console.WriteLine("\t przykladowe palindromy do sprawdzenia sos, Anna, sedes, zaraz, kajak, zakaz, owocowo, potop, radar.");
+            Console.WriteLine("\t przykladowe palindromy do sprawdzenia sos, Kamil slimak, sedes, zaraz, kajak, zakaz, owocowo, potop, radar.");
             Console.WriteLine("\t ====================================================================================================");
             Console.WriteLine("");
             Console.WriteLine("Wpisz jakis wyraz aby sprawdzic czy jest palindromem");
@@ -380,7 +388,7 @@ namespace ProjektGPR
                     }
                 }                         
             }
-            if (stos.Count() < 2) 
+            if (stos.Count() < 1) 
             {
                 Console.WriteLine("Niepoprawne wyrażenie ONP");
             }
@@ -390,5 +398,88 @@ namespace ProjektGPR
             }           
         }
         //onp koniec
+        // mnozenie macierzy
+        static void mnozenieMacierzy()
+        {
+            Console.Clear();          
+            // utworzenie zmiennych a b to pierwsza macierz x y to druga
+            int a, b;
+            int x, y;
+            int[,] macierz1;
+            int[,] macierz2;
+            do
+            {
+                try
+                {
+                    Console.WriteLine("\tWybrano tryb 8 - Mnożenie macierzy 2-wymiarowej.");
+                    Console.Write("Podaj ilosc wierszy pierwszej macierzy: ");
+                    a = Convert.ToInt32(Console.ReadLine());
+                    Console.Write("Podaj ilosc kolumn pierwszej macierzy: ");
+                    b = Convert.ToInt32(Console.ReadLine());
+                    macierz1 = new int[a, b];
+                    Console.Clear();
+                    Console.WriteLine("\tWybrano tryb 8 - Mnożenie macierzy 2-wymiarowej.");
+                    Console.Write("Podaj ilosc wierszy drugiej macierzy: ");
+                    x = Convert.ToInt32(Console.ReadLine());
+                    Console.Write("Podaj ilosc kolumn drugiej macierzy: ");
+                    y = Convert.ToInt32(Console.ReadLine());
+                    macierz2 = new int[x, y];
+                }
+                catch (OverflowException)
+                {
+                    Console.WriteLine("\t Ujemna wartosc - sproboj ponownie");
+                    Thread.Sleep(800);
+                    Console.Clear();
+                    continue;
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("\t Wartosc inna niz przewidywana - sprobuj ponownie");
+                    Thread.Sleep(800);
+                    Console.Clear();
+                    continue;
+                }
+                break;
+            } while (true);
+            Console.Clear();
+            // losowanie liczb do macierzy 1 
+            for (int i = 0; i < a; i++)
+            {
+                for (int j = 0; j < b   ; j++)
+                {
+                    macierz1[i, j] = losowaLiczba.Next(1, 11);
+                }
+            }
+            Console.WriteLine("\tPierwsza macierz: ");
+            Console.WriteLine("=========================");
+            for (int i = 0; i < a; i++)
+            {
+                for (int j = 0; j < b; j++)
+                {
+                    Console.Write($"{macierz1[i, j]}\t");
+                }               
+                Console.Write("\n");
+            }
+            Console.WriteLine("=========================");
+            // losowanie liczb do macierzy 2
+            for (int i = 0; i < x; i++)
+            {
+                for (int j = 0; j < y; j++)
+                {
+                    macierz2[i, j] = losowaLiczba.Next(1, 11);
+                }
+            }
+            Console.WriteLine("\tDruga macierz: ");
+            Console.WriteLine("=========================");
+            for (int i = 0; i < x; i++)
+            {
+                for (int j = 0; j < y; j++)
+                {
+                    Console.Write($"{macierz2[i, j]}\t");
+                }
+                Console.Write("\n");
+            }
+            Console.WriteLine("=========================");
+        }
     }   
 }
